@@ -1,0 +1,41 @@
+CREATE TABLE users (
+    id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    deleted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(36),
+    updated_by VARCHAR(36),
+    deleted_by VARCHAR(36)
+);
+
+CREATE TABLE tasks (
+    id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    user_id VARCHAR(36) NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT,
+    completed BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	created_by VARCHAR(36),
+    updated_by VARCHAR(36),
+    deleted_by VARCHAR(36),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE refresh_tokens (
+    id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    user_id VARCHAR(36) NOT NULL,
+    token VARCHAR(36) NOT NULL UNIQUE,
+    revoked BOOLEAN DEFAULT FALSE,
+    expires_at DATETIME NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+task_manager
+Table	ใช้ทำอะไร
+users	เก็บข้อมูลผู้ใช้
+tasks	รายการงานที่ผู้ใช้เพิ่ม
+refresh_tokens	จัดการ JWT Refresh Token (revoke ได้)
