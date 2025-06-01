@@ -1,9 +1,12 @@
 package utils
 
 import (
+	"log"
+	"os"
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -25,4 +28,15 @@ func GenerateUUID() string {
 
 func RefreshTokenExpiry() time.Time {
     return time.Now().Add(7 * 24 * time.Hour) // หมดอายุใน 7 วัน
+}
+
+func LoadEnv() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+}
+
+func GetJWTSecret() []byte {
+	return []byte(os.Getenv("JWT_SECRET"))
 }

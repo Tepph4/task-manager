@@ -11,15 +11,16 @@ import (
 func SetupRoutes(db *gorm.DB) *gin.Engine {
 	r := gin.Default()
 
-	// r.GET("/ping", func(c *gin.Context) {
-	// 	c.JSON(200, gin.H{"message": "Hello, World!"})
-	// })
+	
 
 	r.POST("/login", func(c *gin.Context) { controllers.Login(c, db) })
 	r.POST("/register",func(c *gin.Context) { controllers.Register(c, db) })
 	
     auth := r.Group("/")
     auth.Use(middleware.JWTAuthMiddleware())
+	auth.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{"message": "Hello, World!"})
+	})
 
 	return r
 }

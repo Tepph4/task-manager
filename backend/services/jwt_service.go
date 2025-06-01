@@ -10,9 +10,9 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var jwtSecret = []byte("your_secret_key")
 
 
+var jwtSecret = utils.GetJWTSecret() 
 
 func GenerateTokens(userID string) (accessToken string, refreshToken string, err error) {
 	// สร้าง access token
