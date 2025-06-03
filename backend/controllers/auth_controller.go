@@ -38,8 +38,12 @@ func Login(c *gin.Context, db *gorm.DB) {
 
 	services.CreateRefreshToken(db, user.ID, refreshToken)
 
-    c.JSON(http.StatusOK, gin.H{
-        "access_token":  token,
+    c.JSON(http.StatusOK, gin.H{       
+        "user": gin.H{
+                "id":       user.ID,
+                "username": user.Username,                
+                },
+        "token":  token,
         "refresh_token": refreshToken,
     })	
 }
