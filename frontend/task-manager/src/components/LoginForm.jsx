@@ -17,6 +17,7 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 
+
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -38,6 +39,10 @@ const Card = styled(MuiCard)(({ theme }) => ({
 function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [usernameError, setUsernameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [usernameErrorMessage, setusernameErrorMessage] = useState("");
+  const [passwordErrorMessage, setpasswordErrorMessage] = useState("");
   const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
   const { login } = useAuth();
@@ -58,28 +63,28 @@ function LoginForm() {
     setOpen(true);
   };
 
-  //   const validateInputs = () => {
-  //   const username = document.getElementById('username') as HTMLInputElement;
-  //   const password = document.getElementById('password') as HTMLInputElement;
+  //   const validateInputs = (username , password) => {
+  //   // const username = document.getElementById('username');
+  //   // const password = document.getElementById('password');
 
   //   let isValid = true;
 
   //   if (!username.value || !/\S+@\S+\.\S+/.test(username.value)) {
-  //     setusernameError(true);
+  //     setUsernameError(true);
   //     setusernameErrorMessage('Please enter a valid username address.');
   //     isValid = false;
   //   } else {
-  //     setusernameError(false);
+  //     setUsernameError(false);
   //     setusernameErrorMessage('');
   //   }
 
-  //   if (!password.value || password.value.length < 6) {
+  //   if (!password.value || password.value.length < 4) {
   //     setPasswordError(true);
-  //     setPasswordErrorMessage('Password must be at least 6 characters long.');
+  //     setpasswordErrorMessage('Password must be at least 6 characters long.');
   //     isValid = false;
   //   } else {
   //     setPasswordError(false);
-  //     setPasswordErrorMessage('');
+  //     setpasswordErrorMessage('');
   //   }
 
   //   return isValid;
@@ -109,12 +114,12 @@ function LoginForm() {
           <FormControl>
             <FormLabel htmlFor="username">Username</FormLabel>
             <TextField
-              // error={usernameError}
-              // helperText={usernameErrorMessage}
+              error={usernameError}
+              helperText={usernameErrorMessage}
               id="Username"
               type="Username"
               name="Username"
-              placeholder="Username@username.com"
+              placeholder="Username"
               autoComplete="username"
               autoFocus
               value={username}
@@ -122,7 +127,7 @@ function LoginForm() {
               required
               fullWidth
               variant="outlined"
-              // color={usernameError ? "error" : "primary"}
+              color={usernameError ? "error" : "primary"}
             />
           </FormControl>
           <FormControl>
@@ -139,8 +144,8 @@ function LoginForm() {
               </Link>
             </Box>
             <TextField
-              // error={passwordError}
-              // helperText={passwordErrorMessage}
+              error={passwordError}
+              helperText={passwordErrorMessage}
               name="password"
               placeholder="••••••"
               type="password"
@@ -152,7 +157,7 @@ function LoginForm() {
               required
               fullWidth
               variant="outlined"
-              // color={passwordError ? "error" : "primary"}
+              color={passwordError ? "error" : "primary"}
             />
           </FormControl>
           <FormControlLabel
@@ -164,7 +169,7 @@ function LoginForm() {
             type="submit"
             fullWidth
             variant="contained"
-            // onClick={validateInputs}
+            // onClick={validateInputs(username, password)}
           >
             Sign in
           </Button>

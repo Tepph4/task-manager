@@ -10,7 +10,7 @@ function AuthLayout({ children }) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#f5f5f5",
+        backgroundColor: "#FFFFFF",
         padding: 2,
       }}
     >
